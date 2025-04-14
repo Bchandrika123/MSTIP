@@ -1,0 +1,35 @@
+
+🏠 Entrance Hall
+A dark, dusty room with cobwebs.
+
+Items here:
+- Sword - A sharp blade
+
+Exits:
+- east
+- down
+
+What do you want to do? (go/take/fight/inventory/quit): take sword
+✅ You picked up: Sword
+
+What do you want to do? (go/take/fight/inventory/quit): go down
+
+🏠 Dungeon
+A cold, scary place.
+
+Enemies here:
+- Goblin (Health: 50)
+
+Exits:
+- up
+
+What do you want to do? (go/take/fight/inventory/quit): fight goblin
+⚔️ Fighting Goblin...
+→ You hit Goblin! Health: 25
+← Goblin hits you! Your Health: 90
+→ You hit Goblin! Health: 0
+← Goblin hits you! Your Health: 80
+🎉 You defeated Goblin!
+
+What do you want to do? (go/take/fight/inventory/quit): quit
+👋 Thanks for playing!
