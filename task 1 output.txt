@@ -1,0 +1,23 @@
+Requirement already satisfied: requests in /usr/local/lib/python3.11/dist-packages (2.32.3)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.11/dist-packages (4.13.3)
+Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.11/dist-packages (from requests) (3.4.1)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/dist-packages (from requests) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.11/dist-packages (from requests) (2.3.0)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/dist-packages (from requests) (2025.1.31)
+Requirement already satisfied: soupsieve>1.2 in /usr/local/lib/python3.11/dist-packages (from beautifulsoup4) (2.6)
+Requirement already satisfied: typing-extensions>=4.0.0 in /usr/local/lib/python3.11/dist-packages (from beautifulsoup4) (4.13.0)
+
+
+Enter an Indian city (e.g., Delhi, Mumbai): Kurnool
+
+📍 Weather Report - Kurnool, India
+---------------------------------------------
+Temperature: 77 °F
+Condition: Partly sunny.
+Location: Kurnool
+Current Time: Apr 4, 2025 at 10:52:11 am
+Latest Report: Apr 4, 2025 at 8:30 am
+Visibility: 6 mi
+Pressure: 29.96 "Hg
+Humidity: 77%
+Dew Point: 69 °F
