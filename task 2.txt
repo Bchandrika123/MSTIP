@@ -1,0 +1,140 @@
+class Item:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __str__(self):
+        return f"{self.name} - {self.description}"
+
+
+class Enemy:
+    def __init__(self, name, health):
+        self.name = name
+        self.health = health
+
+    def is_defeated(self):
+        return self.health <= 0
+
+    def attack(self):
+        return 10  # Fixed damage for simplicity
+
+
+class Room:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        self.exits = {}
+        self.items = []
+        self.enemies = []
+
+    def link_room(self, direction, room):
+        self.exits[direction] = room
+
+    def describe(self):
+        print(f"\n🏠 {self.name}")
+        print(f"{self.description}")
+        if self.items:
+            print("\nItems here:")
+            for item in self.items:
+                print(f"- {item}")
+        if self.enemies:
+            print("\nEnemies here:")
+            for enemy in self.enemies:
+                print(f"- {enemy.name} (Health: {enemy.health})")
+        if self.exits:
+            print("\nExits:")
+            for direction in self.exits:
+                print(f"- {direction}")
+
+
+class Player:
+    def __init__(self, start_room):
+        self.current_room = start_room
+        self.inventory = []
+        self.health = 100
+
+    def go(self, direction):
+        if direction in self.current_room.exits:
+            self.current_room = self.current_room.exits[direction]
+            self.current_room.describe()
+        else:
+            print("🚫 You can't go that way!")
+
+    def take(self, item_name):
+        for item in self.current_room.items:
+            if item.name.lower() == item_name:
+                self.inventory.append(item)
+                self.current_room.items.remove(item)
+                print(f"✅ You picked up: {item.name}")
+                return
+        print("❌ No such item here!")
+
+    def fight(self, enemy_name):
+        for enemy in self.current_room.enemies:
+            if enemy.name.lower() == enemy_name:
+                print(f"⚔️ Fighting {enemy.name}...")
+                while not enemy.is_defeated() and self.health > 0:
+                    enemy.health -= 25
+                    self.health -= enemy.attack()
+                    print(f"→ You hit {enemy.name}! Health: {enemy.health}")
+                    print(f"← {enemy.name} hits you! Your Health: {self.health}")
+                if enemy.is_defeated():
+                    print(f"🎉 You defeated {enemy.name}!")
+                    self.current_room.enemies.remove(enemy)
+                else:
+                    print("💀 You died!")
+                    exit()
+                return
+        print("😕 Enemy not found.")
+
+
+# Game Setup
+sword = Item("Sword", "A sharp blade")
+potion = Item("Potion", "Heals 20 HP")
+goblin = Enemy("Goblin", 50)
+
+room1 = Room("Entrance Hall", "A dark, dusty room with cobwebs.")
+room2 = Room("Treasure Room", "A room glowing with golden light.")
+room3 = Room("Dungeon", "A cold, scary place.")
+
+room1.link_room("east", room2)
+room2.link_room("west", room1)
+room1.link_room("down", room3)
+room3.link_room("up", room1)
+
+room1.items.append(sword)
+room2.items.append(potion)
+room3.enemies.append(goblin)
+
+player = Player(room1)
+player.current_room.describe()
+
+# Game Loop
+while True:
+    command = input("\nWhat do you want to do? (go/take/fight/inventory/quit): ").strip().lower()
+
+    if command.startswith("go "):
+        _, direction = command.split(" ", 1)
+        player.go(direction)
+
+    elif command.startswith("take "):
+        _, item_name = command.split(" ", 1)
+        player.take(item_name)
+
+    elif command.startswith("fight "):
+        _, enemy_name = command.split(" ", 1)
+        player.fight(enemy_name)
+
+    elif command == "inventory":
+        print("\n🎒 Inventory:")
+        for item in player.inventory:
+            print(f"- {item.name}")
+        if not player.inventory:
+            print("Empty.")
+
+    elif command == "quit":
+        print("👋 Thanks for playing!")
+        break
+
+    else:
+        print("❓ Invalid command. Try 'go', 'take', or 'fight'.")
